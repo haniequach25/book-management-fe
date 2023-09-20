@@ -26,7 +26,7 @@ const BookRoutes = () => {
         }
       >
         <Route
-          path="book"
+          path=""
           element={
             <Suspense fallback={<Spin />}>
               <BookList />

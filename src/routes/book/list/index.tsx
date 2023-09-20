@@ -1,9 +1,16 @@
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { useQuery } from '@tanstack/react-query';
 import { Button, Col, Empty, Row, Table } from 'antd';
 import { ColumnType } from 'antd/es/table';
 import moment from 'moment';
+import { bookApi } from '../../../apis';
 
 const BookList = () => {
+  const { data } = useQuery({
+    queryKey: ['getList'],
+    queryFn: () => bookApi.bookControllerGetAll(),
+  });
+
   const columns: ColumnType<any>[] = [
     {
       align: 'center',

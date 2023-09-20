@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AuthApi, CustomersApi, Configuration, RolesApi, PermissionsApi } from './client-axios';
+import { Configuration, AuthorApi, CategoryApi, PublisherApi, BookApi, OrderApi } from './client-axios';
 
 const config = new Configuration({
   basePath: process.env.REACT_APP_API_URL,
@@ -22,9 +22,10 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-const authApi = new AuthApi(config, undefined, axiosInstance);
-const customerApi = new CustomersApi(config, undefined, axiosInstance);
-const roleApi = new RolesApi(config, undefined, axiosInstance);
-const permissionApi = new PermissionsApi(config, undefined, axiosInstance);
+const authorApi = new AuthorApi(config, undefined, axiosInstance);
+const categoryApi = new CategoryApi(config, undefined, axiosInstance);
+const publisherApi = new PublisherApi(config, undefined, axiosInstance);
+const bookApi = new BookApi(config, undefined, axiosInstance);
+const orderApi = new OrderApi(config, undefined, axiosInstance);
 
-export { authApi, customerApi, roleApi, permissionApi };
+export { authorApi, categoryApi, publisherApi, bookApi, orderApi };

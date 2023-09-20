@@ -6,11 +6,11 @@ import { memo } from 'react';
 import { TAB_SIZE } from '../../constants/ThemeSetting';
 
 const AccountInfo = (props: { infoDropdownItems?: MenuProps['items'] }) => {
-  const { authUser } = useSelector((state: RootState) => state.auth);
+  // const { authUser } = useSelector((state: RootState) => state.auth);
   const { width } = useSelector((state: RootState) => state.setting);
-  const getFullName = () => {
-    return (authUser?.firstName || '') + ' ' + (authUser?.lastName || '');
-  };
+  // const getFullName = () => {
+  //   return (authUser?.firstName || '') + ' ' + (authUser?.lastName || '');
+  // };
   const sampleItems: MenuProps['items'] = [
     {
       key: '3',
@@ -28,7 +28,7 @@ const AccountInfo = (props: { infoDropdownItems?: MenuProps['items'] }) => {
       >
         <div>
           <Avatar className="my-auto" icon={<UserOutlined />} />
-          <span className="ms-1">{width < TAB_SIZE ? '' : getFullName()}</span>
+          {/* <span className="ms-1">{width < TAB_SIZE ? '' : getFullName()}</span> */}
         </div>
       </Dropdown>
     </div>

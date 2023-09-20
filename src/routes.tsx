@@ -5,7 +5,7 @@ const RoutesApp = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/*" element={<BookRoutes />} />
+        <Route path="/book/*" element={<BookRoutes />} />
       </Routes>
     </BrowserRouter>
   );
