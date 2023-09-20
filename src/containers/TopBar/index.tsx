@@ -1,8 +1,5 @@
-import { Button, Layout, MenuProps, Row, theme } from 'antd';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import LanguageDropdown from './LanguageDropdown';
-import AccountInfo from './AccountInfo';
-import DarkModeSwitch from './DarkModeSwitch';
+import { Button, Layout, MenuProps, Row, theme } from 'antd';
 import { ReactNode } from 'react';
 const { Header } = Layout;
 
@@ -30,11 +27,6 @@ const Topbar = (props: {
           }}
         />
         {props.children}
-      </Row>
-      <Row>
-        <DarkModeSwitch />
-        <LanguageDropdown />
-        <AccountInfo infoDropdownItems={props.infoDropdownItems} />
       </Row>
     </Header>
   );

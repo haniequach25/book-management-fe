@@ -1,13 +1,13 @@
-import { Breadcrumb, Button, Card, Drawer, Layout, MenuProps, theme } from 'antd';
-import { Outlet } from 'react-router-dom';
-import SidebarContent from '../SideBar/SidebarContent';
-import { ReactNode, useEffect, useState } from 'react';
-import SidebarLogo from '../SideBar/SidebarLogo';
-import Topbar from '../TopBar';
-import { TAB_SIZE } from '../../constants/ThemeSetting';
+import { Drawer, Layout, MenuProps } from 'antd';
+import { ReactNode, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
+import { TAB_SIZE } from '../../constants/ThemeSetting';
 import { RootState } from '../../store';
-const { Header, Content, Sider, Footer } = Layout;
+import SidebarContent from '../SideBar/SidebarContent';
+import Topbar from '../TopBar';
+
+const { Content, Sider } = Layout;
 
 interface IMainAppProp {
   menuItems?: MenuProps['items'];
@@ -49,9 +49,6 @@ const MainApp = (props: IMainAppProp) => {
           >
             <Outlet />
           </Content>
-          {/* <Footer style={{ textAlign: "center" }}>
-            ©2023 Created by Company
-          </Footer> */}
         </Layout>
       </Layout>
     </Layout>

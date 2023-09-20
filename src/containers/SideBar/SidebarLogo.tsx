@@ -15,6 +15,7 @@ const SidebarLogo = () => {
         height={32}
         className="my-auto"
         src={isDarkMode ? '/assets/icons/logo-white.png' : '/assets/icons/logo.png'}
+        alt="logo"
       />
     </div>
   );

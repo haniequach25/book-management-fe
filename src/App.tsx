@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
-import { ConfigProvider, Menu, theme } from 'antd';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Provider, useSelector } from 'react-redux';
-import AppLocale from './lngProvider';
-import { IntlProvider } from 'react-intl';
-import { RootState, useAppDispatch } from './store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ConfigProvider, theme } from 'antd';
+import React, { useEffect } from 'react';
+import { IntlProvider } from 'react-intl';
+import { useSelector } from 'react-redux';
+import AppLocale from './lngProvider';
 import RoutesApp from './routes';
+import { RootState, useAppDispatch } from './store';
 import { updateWindowWidth } from './store/settingSlice';
 
 const App: React.FC = () => {
