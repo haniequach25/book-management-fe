@@ -23,7 +23,7 @@ export const getItem = (
   } as MenuItem;
 };
 
-const menuItems: MenuProps['items'] = [getItem('Book Manager', '', <BookOutlined />)];
+const menuItems: MenuProps['items'] = [getItem('Book Manager', 'book', <BookOutlined />)];
 
 interface ISideBarContentProp {
   menuItems?: MenuProps['items'];
