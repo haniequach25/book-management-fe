@@ -67,11 +67,15 @@ export const AuthorApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorControllerDetele: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/author/{id}`;
+        authorControllerDetele: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('authorControllerDetele', 'id', id)
+            const localVarPath = `/author/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -125,11 +129,15 @@ export const AuthorApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorControllerGetOne: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/author/{id}`;
+        authorControllerGetOne: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('authorControllerGetOne', 'id', id)
+            const localVarPath = `/author/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -154,14 +162,18 @@ export const AuthorApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorControllerUpdate: async (body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authorControllerUpdate: async (id: string, body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('authorControllerUpdate', 'id', id)
             // verify required parameter 'body' is not null or undefined
             assertParamExists('authorControllerUpdate', 'body', body)
-            const localVarPath = `/author/{id}`;
+            const localVarPath = `/author/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -209,11 +221,12 @@ export const AuthorApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authorControllerDetele(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authorControllerDetele(options);
+        async authorControllerDetele(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authorControllerDetele(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -227,21 +240,23 @@ export const AuthorApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authorControllerGetOne(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authorControllerGetOne(options);
+        async authorControllerGetOne(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authorControllerGetOne(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authorControllerUpdate(body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authorControllerUpdate(body, options);
+        async authorControllerUpdate(id: string, body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authorControllerUpdate(id, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -265,11 +280,12 @@ export const AuthorApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorControllerDetele(options?: any): AxiosPromise<void> {
-            return localVarFp.authorControllerDetele(options).then((request) => request(axios, basePath));
+        authorControllerDetele(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.authorControllerDetele(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -281,20 +297,22 @@ export const AuthorApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorControllerGetOne(options?: any): AxiosPromise<void> {
-            return localVarFp.authorControllerGetOne(options).then((request) => request(axios, basePath));
+        authorControllerGetOne(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.authorControllerGetOne(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorControllerUpdate(body: object, options?: any): AxiosPromise<void> {
-            return localVarFp.authorControllerUpdate(body, options).then((request) => request(axios, basePath));
+        authorControllerUpdate(id: string, body: object, options?: any): AxiosPromise<void> {
+            return localVarFp.authorControllerUpdate(id, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -319,12 +337,13 @@ export class AuthorApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthorApi
      */
-    public authorControllerDetele(options?: AxiosRequestConfig) {
-        return AuthorApiFp(this.configuration).authorControllerDetele(options).then((request) => request(this.axios, this.basePath));
+    public authorControllerDetele(id: string, options?: AxiosRequestConfig) {
+        return AuthorApiFp(this.configuration).authorControllerDetele(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -339,23 +358,25 @@ export class AuthorApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthorApi
      */
-    public authorControllerGetOne(options?: AxiosRequestConfig) {
-        return AuthorApiFp(this.configuration).authorControllerGetOne(options).then((request) => request(this.axios, this.basePath));
+    public authorControllerGetOne(id: string, options?: AxiosRequestConfig) {
+        return AuthorApiFp(this.configuration).authorControllerGetOne(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @param {string} id 
      * @param {object} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthorApi
      */
-    public authorControllerUpdate(body: object, options?: AxiosRequestConfig) {
-        return AuthorApiFp(this.configuration).authorControllerUpdate(body, options).then((request) => request(this.axios, this.basePath));
+    public authorControllerUpdate(id: string, body: object, options?: AxiosRequestConfig) {
+        return AuthorApiFp(this.configuration).authorControllerUpdate(id, body, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -403,11 +424,15 @@ export const BookApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        bookControllerDetele: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/book/{id}`;
+        bookControllerDetele: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('bookControllerDetele', 'id', id)
+            const localVarPath = `/book/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -461,11 +486,15 @@ export const BookApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        bookControllerGetOne: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/book/{id}`;
+        bookControllerGetOne: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('bookControllerGetOne', 'id', id)
+            const localVarPath = `/book/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -490,14 +519,18 @@ export const BookApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        bookControllerUpdate: async (body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        bookControllerUpdate: async (id: string, body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('bookControllerUpdate', 'id', id)
             // verify required parameter 'body' is not null or undefined
             assertParamExists('bookControllerUpdate', 'body', body)
-            const localVarPath = `/book/{id}`;
+            const localVarPath = `/book/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -545,11 +578,12 @@ export const BookApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async bookControllerDetele(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.bookControllerDetele(options);
+        async bookControllerDetele(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.bookControllerDetele(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -563,21 +597,23 @@ export const BookApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async bookControllerGetOne(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.bookControllerGetOne(options);
+        async bookControllerGetOne(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.bookControllerGetOne(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async bookControllerUpdate(body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.bookControllerUpdate(body, options);
+        async bookControllerUpdate(id: string, body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.bookControllerUpdate(id, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -601,11 +637,12 @@ export const BookApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        bookControllerDetele(options?: any): AxiosPromise<void> {
-            return localVarFp.bookControllerDetele(options).then((request) => request(axios, basePath));
+        bookControllerDetele(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.bookControllerDetele(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -617,20 +654,22 @@ export const BookApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        bookControllerGetOne(options?: any): AxiosPromise<void> {
-            return localVarFp.bookControllerGetOne(options).then((request) => request(axios, basePath));
+        bookControllerGetOne(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.bookControllerGetOne(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        bookControllerUpdate(body: object, options?: any): AxiosPromise<void> {
-            return localVarFp.bookControllerUpdate(body, options).then((request) => request(axios, basePath));
+        bookControllerUpdate(id: string, body: object, options?: any): AxiosPromise<void> {
+            return localVarFp.bookControllerUpdate(id, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -655,12 +694,13 @@ export class BookApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BookApi
      */
-    public bookControllerDetele(options?: AxiosRequestConfig) {
-        return BookApiFp(this.configuration).bookControllerDetele(options).then((request) => request(this.axios, this.basePath));
+    public bookControllerDetele(id: string, options?: AxiosRequestConfig) {
+        return BookApiFp(this.configuration).bookControllerDetele(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -675,23 +715,25 @@ export class BookApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BookApi
      */
-    public bookControllerGetOne(options?: AxiosRequestConfig) {
-        return BookApiFp(this.configuration).bookControllerGetOne(options).then((request) => request(this.axios, this.basePath));
+    public bookControllerGetOne(id: string, options?: AxiosRequestConfig) {
+        return BookApiFp(this.configuration).bookControllerGetOne(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @param {string} id 
      * @param {object} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BookApi
      */
-    public bookControllerUpdate(body: object, options?: AxiosRequestConfig) {
-        return BookApiFp(this.configuration).bookControllerUpdate(body, options).then((request) => request(this.axios, this.basePath));
+    public bookControllerUpdate(id: string, body: object, options?: AxiosRequestConfig) {
+        return BookApiFp(this.configuration).bookControllerUpdate(id, body, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -739,11 +781,15 @@ export const CategoryApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        categoryControllerDelete: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/category/{id}`;
+        categoryControllerDelete: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('categoryControllerDelete', 'id', id)
+            const localVarPath = `/category/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -797,11 +843,15 @@ export const CategoryApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        categoryControllerGetOne: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/category/{id}`;
+        categoryControllerGetOne: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('categoryControllerGetOne', 'id', id)
+            const localVarPath = `/category/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -826,14 +876,18 @@ export const CategoryApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        categoryControllerUpdate: async (body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        categoryControllerUpdate: async (id: string, body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('categoryControllerUpdate', 'id', id)
             // verify required parameter 'body' is not null or undefined
             assertParamExists('categoryControllerUpdate', 'body', body)
-            const localVarPath = `/category/{id}`;
+            const localVarPath = `/category/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -881,11 +935,12 @@ export const CategoryApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async categoryControllerDelete(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.categoryControllerDelete(options);
+        async categoryControllerDelete(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.categoryControllerDelete(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -899,21 +954,23 @@ export const CategoryApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async categoryControllerGetOne(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.categoryControllerGetOne(options);
+        async categoryControllerGetOne(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.categoryControllerGetOne(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async categoryControllerUpdate(body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.categoryControllerUpdate(body, options);
+        async categoryControllerUpdate(id: string, body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.categoryControllerUpdate(id, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -937,11 +994,12 @@ export const CategoryApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        categoryControllerDelete(options?: any): AxiosPromise<void> {
-            return localVarFp.categoryControllerDelete(options).then((request) => request(axios, basePath));
+        categoryControllerDelete(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.categoryControllerDelete(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -953,20 +1011,22 @@ export const CategoryApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        categoryControllerGetOne(options?: any): AxiosPromise<void> {
-            return localVarFp.categoryControllerGetOne(options).then((request) => request(axios, basePath));
+        categoryControllerGetOne(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.categoryControllerGetOne(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        categoryControllerUpdate(body: object, options?: any): AxiosPromise<void> {
-            return localVarFp.categoryControllerUpdate(body, options).then((request) => request(axios, basePath));
+        categoryControllerUpdate(id: string, body: object, options?: any): AxiosPromise<void> {
+            return localVarFp.categoryControllerUpdate(id, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -991,12 +1051,13 @@ export class CategoryApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CategoryApi
      */
-    public categoryControllerDelete(options?: AxiosRequestConfig) {
-        return CategoryApiFp(this.configuration).categoryControllerDelete(options).then((request) => request(this.axios, this.basePath));
+    public categoryControllerDelete(id: string, options?: AxiosRequestConfig) {
+        return CategoryApiFp(this.configuration).categoryControllerDelete(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1011,23 +1072,25 @@ export class CategoryApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CategoryApi
      */
-    public categoryControllerGetOne(options?: AxiosRequestConfig) {
-        return CategoryApiFp(this.configuration).categoryControllerGetOne(options).then((request) => request(this.axios, this.basePath));
+    public categoryControllerGetOne(id: string, options?: AxiosRequestConfig) {
+        return CategoryApiFp(this.configuration).categoryControllerGetOne(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @param {string} id 
      * @param {object} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CategoryApi
      */
-    public categoryControllerUpdate(body: object, options?: AxiosRequestConfig) {
-        return CategoryApiFp(this.configuration).categoryControllerUpdate(body, options).then((request) => request(this.axios, this.basePath));
+    public categoryControllerUpdate(id: string, body: object, options?: AxiosRequestConfig) {
+        return CategoryApiFp(this.configuration).categoryControllerUpdate(id, body, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1075,11 +1138,15 @@ export const OrderApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        orderControllerDetele: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/order/{id}`;
+        orderControllerDetele: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('orderControllerDetele', 'id', id)
+            const localVarPath = `/order/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1133,11 +1200,15 @@ export const OrderApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        orderControllerGetOne: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/order/{id}`;
+        orderControllerGetOne: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('orderControllerGetOne', 'id', id)
+            const localVarPath = `/order/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1162,14 +1233,18 @@ export const OrderApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        orderControllerUpdate: async (body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        orderControllerUpdate: async (id: string, body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('orderControllerUpdate', 'id', id)
             // verify required parameter 'body' is not null or undefined
             assertParamExists('orderControllerUpdate', 'body', body)
-            const localVarPath = `/order/{id}`;
+            const localVarPath = `/order/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1217,11 +1292,12 @@ export const OrderApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async orderControllerDetele(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.orderControllerDetele(options);
+        async orderControllerDetele(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.orderControllerDetele(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1235,21 +1311,23 @@ export const OrderApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async orderControllerGetOne(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.orderControllerGetOne(options);
+        async orderControllerGetOne(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.orderControllerGetOne(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async orderControllerUpdate(body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.orderControllerUpdate(body, options);
+        async orderControllerUpdate(id: string, body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.orderControllerUpdate(id, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1273,11 +1351,12 @@ export const OrderApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        orderControllerDetele(options?: any): AxiosPromise<void> {
-            return localVarFp.orderControllerDetele(options).then((request) => request(axios, basePath));
+        orderControllerDetele(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.orderControllerDetele(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1289,20 +1368,22 @@ export const OrderApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        orderControllerGetOne(options?: any): AxiosPromise<void> {
-            return localVarFp.orderControllerGetOne(options).then((request) => request(axios, basePath));
+        orderControllerGetOne(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.orderControllerGetOne(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        orderControllerUpdate(body: object, options?: any): AxiosPromise<void> {
-            return localVarFp.orderControllerUpdate(body, options).then((request) => request(axios, basePath));
+        orderControllerUpdate(id: string, body: object, options?: any): AxiosPromise<void> {
+            return localVarFp.orderControllerUpdate(id, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1327,12 +1408,13 @@ export class OrderApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrderApi
      */
-    public orderControllerDetele(options?: AxiosRequestConfig) {
-        return OrderApiFp(this.configuration).orderControllerDetele(options).then((request) => request(this.axios, this.basePath));
+    public orderControllerDetele(id: string, options?: AxiosRequestConfig) {
+        return OrderApiFp(this.configuration).orderControllerDetele(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1347,23 +1429,25 @@ export class OrderApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrderApi
      */
-    public orderControllerGetOne(options?: AxiosRequestConfig) {
-        return OrderApiFp(this.configuration).orderControllerGetOne(options).then((request) => request(this.axios, this.basePath));
+    public orderControllerGetOne(id: string, options?: AxiosRequestConfig) {
+        return OrderApiFp(this.configuration).orderControllerGetOne(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @param {string} id 
      * @param {object} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrderApi
      */
-    public orderControllerUpdate(body: object, options?: AxiosRequestConfig) {
-        return OrderApiFp(this.configuration).orderControllerUpdate(body, options).then((request) => request(this.axios, this.basePath));
+    public orderControllerUpdate(id: string, body: object, options?: AxiosRequestConfig) {
+        return OrderApiFp(this.configuration).orderControllerUpdate(id, body, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1411,11 +1495,15 @@ export const PublisherApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publisherControllerDelete: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/publisher/{id}`;
+        publisherControllerDelete: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('publisherControllerDelete', 'id', id)
+            const localVarPath = `/publisher/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1469,11 +1557,15 @@ export const PublisherApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publisherControllerGetOne: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/publisher/{id}`;
+        publisherControllerGetOne: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('publisherControllerGetOne', 'id', id)
+            const localVarPath = `/publisher/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1498,14 +1590,18 @@ export const PublisherApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publisherControllerUpdate: async (body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        publisherControllerUpdate: async (id: string, body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('publisherControllerUpdate', 'id', id)
             // verify required parameter 'body' is not null or undefined
             assertParamExists('publisherControllerUpdate', 'body', body)
-            const localVarPath = `/publisher/{id}`;
+            const localVarPath = `/publisher/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1553,11 +1649,12 @@ export const PublisherApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publisherControllerDelete(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.publisherControllerDelete(options);
+        async publisherControllerDelete(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.publisherControllerDelete(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1571,21 +1668,23 @@ export const PublisherApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publisherControllerGetOne(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.publisherControllerGetOne(options);
+        async publisherControllerGetOne(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.publisherControllerGetOne(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publisherControllerUpdate(body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.publisherControllerUpdate(body, options);
+        async publisherControllerUpdate(id: string, body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.publisherControllerUpdate(id, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1609,11 +1708,12 @@ export const PublisherApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publisherControllerDelete(options?: any): AxiosPromise<void> {
-            return localVarFp.publisherControllerDelete(options).then((request) => request(axios, basePath));
+        publisherControllerDelete(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.publisherControllerDelete(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1625,20 +1725,22 @@ export const PublisherApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publisherControllerGetOne(options?: any): AxiosPromise<void> {
-            return localVarFp.publisherControllerGetOne(options).then((request) => request(axios, basePath));
+        publisherControllerGetOne(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.publisherControllerGetOne(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publisherControllerUpdate(body: object, options?: any): AxiosPromise<void> {
-            return localVarFp.publisherControllerUpdate(body, options).then((request) => request(axios, basePath));
+        publisherControllerUpdate(id: string, body: object, options?: any): AxiosPromise<void> {
+            return localVarFp.publisherControllerUpdate(id, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1663,12 +1765,13 @@ export class PublisherApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PublisherApi
      */
-    public publisherControllerDelete(options?: AxiosRequestConfig) {
-        return PublisherApiFp(this.configuration).publisherControllerDelete(options).then((request) => request(this.axios, this.basePath));
+    public publisherControllerDelete(id: string, options?: AxiosRequestConfig) {
+        return PublisherApiFp(this.configuration).publisherControllerDelete(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1683,23 +1786,25 @@ export class PublisherApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PublisherApi
      */
-    public publisherControllerGetOne(options?: AxiosRequestConfig) {
-        return PublisherApiFp(this.configuration).publisherControllerGetOne(options).then((request) => request(this.axios, this.basePath));
+    public publisherControllerGetOne(id: string, options?: AxiosRequestConfig) {
+        return PublisherApiFp(this.configuration).publisherControllerGetOne(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @param {string} id 
      * @param {object} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PublisherApi
      */
-    public publisherControllerUpdate(body: object, options?: AxiosRequestConfig) {
-        return PublisherApiFp(this.configuration).publisherControllerUpdate(body, options).then((request) => request(this.axios, this.basePath));
+    public publisherControllerUpdate(id: string, body: object, options?: AxiosRequestConfig) {
+        return PublisherApiFp(this.configuration).publisherControllerUpdate(id, body, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

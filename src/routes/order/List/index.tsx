@@ -4,32 +4,40 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button, Col, Empty, Popconfirm, Row, Table, message } from 'antd';
 import { ColumnType } from 'antd/es/table';
 import moment from 'moment';
-import { bookApi } from '../../../apis';
-import { Book } from '../../../utils/constants';
+import { bookApi, orderApi } from '../../../apis';
+import { Book, Order } from '../../../utils/constants';
 import { CreateEditModal } from '../CreateEditModal';
 
-export interface CreateBookDTO {
-  title?: string;
-  page_number?: number;
-  price?: number;
-  published_date?: Date | string;
-  created_at?: Date;
-  author?: string;
-  category?: string;
-  publisher?: string;
+export interface BookItems {
+  quantity: number;
+  book: string;
+  price: number;
 }
 
-const BookList = () => {
-  const [listData, setListData] = useState<Book[]>();
+export interface CreateOrderDTO {
+  customerName: string;
+  customerPhoneNumber: string;
+  items: BookItems[];
+  totalPrice?: number;
+}
+
+const OrderList = () => {
+  const [listData, setListData] = useState<Order[]>();
   const [currentId, setCurrentId] = useState<string>();
   const [isOpenCreateEdit, setIsOpenCreateEdit] = useState<boolean>(false);
+  const [listBook, setListBook] = useState<Book[]>([]);
 
   const { data, refetch } = useQuery({
     queryKey: ['getList'],
+    queryFn: () => orderApi.orderControllerGetAll(),
+  });
+
+  const { data: dataBook } = useQuery({
+    queryKey: ['getListBook'],
     queryFn: () => bookApi.bookControllerGetAll(),
   });
 
-  const createMutation = useMutation((createDTO: CreateBookDTO) => bookApi.bookControllerCreate(createDTO), {
+  const createMutation = useMutation((createDTO: CreateOrderDTO) => orderApi.orderControllerCreate(createDTO), {
     onSuccess: ({ data }) => {
       refetch();
       onCancelModal();
@@ -40,7 +48,7 @@ const BookList = () => {
   });
 
   const editMutation = useMutation(
-    (param: { id: string; updateDTO: CreateBookDTO }) => bookApi.bookControllerUpdate(param.id, param.updateDTO),
+    (param: { id: string; updateDTO: CreateOrderDTO }) => orderApi.orderControllerUpdate(param.id, param.updateDTO),
     {
       onSuccess: ({ data }) => {
         refetch();
@@ -52,7 +60,7 @@ const BookList = () => {
     }
   );
 
-  const deleteMutation = useMutation((id: string) => bookApi.bookControllerDetele(id), {
+  const deleteMutation = useMutation((id: string) => orderApi.orderControllerDetele(id), {
     onSuccess: ({ data }) => {
       refetch();
       onCancelModal();
@@ -82,15 +90,36 @@ const BookList = () => {
     setCurrentId(undefined);
   };
 
-  const onFinishFormModal = (value: CreateBookDTO) => {
+  const onFinishFormModal = (value: CreateOrderDTO) => {
+    let totalPrice = 0;
+    value.items?.forEach((item) => {
+      console.log(
+        'book',
+        item.book,
+        listBook.find((book) => book._id === item.book)
+      );
+      if (listBook && listBook.find((book) => book._id === item.book)) {
+        const price = listBook.find((book) => book._id === item.book)?.price ?? 0;
+        totalPrice += +Number(item.quantity ?? 1) * Number(price);
+      }
+    });
     if (!currentId) {
-      createMutation.mutate(value);
+      createMutation.mutate({
+        ...value,
+        totalPrice,
+      });
     } else {
-      editMutation.mutate({ id: currentId, updateDTO: value });
+      editMutation.mutate({
+        id: currentId,
+        updateDTO: {
+          ...value,
+          totalPrice,
+        },
+      });
     }
   };
 
-  const columns: ColumnType<any>[] = [
+  const columns: ColumnType<Order>[] = [
     {
       align: 'center',
       dataIndex: '_id',
@@ -100,60 +129,34 @@ const BookList = () => {
     },
     {
       align: 'center',
-      dataIndex: 'title',
+      dataIndex: 'customerName',
       key: 1,
-      title: 'Title',
-      filterSearch: true,
+      title: 'Customer Name',
       render: (value) => <span>{value}</span>,
     },
     {
       align: 'center',
-      dataIndex: 'page_number',
+      dataIndex: 'customerPhoneNumber',
       key: 2,
-      title: 'Page Number',
+      title: 'Customer Phone Number',
       render: (value) => <span>{value || '...'}</span>,
     },
     {
       align: 'center',
-      dataIndex: 'price',
-      key: 3,
-      title: 'Price',
-      render: (value) => (
-        <span>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value)}</span>
-      ),
-    },
-    {
-      align: 'center',
-      dataIndex: 'published_date',
-      key: 4,
-      title: 'Published Date',
-      render: (value) => <span>{value ? moment(value).format('DD/MM/YYYY') : '...'}</span>,
-    },
-    {
-      align: 'center',
-      dataIndex: 'author',
-      key: 5,
-      title: 'Author',
-      render: (value, record) => <span>{`${record.author?.firstName} ${record.author?.lastName}`}</span>,
-    },
-    {
-      align: 'center',
-      dataIndex: 'category',
       key: 6,
-      title: 'Category',
-      render: (value, record) => <span>{record.category?.name}</span>,
+      title: 'Quantity',
+      render: (value, record) => <span>{record.items?.length ?? 0}</span>,
     },
     {
       align: 'center',
-      dataIndex: 'publisher',
-      key: 7,
-      title: 'Publisher',
-      render: (value, record) => <span>{record.publisher?.name?.toUpperCase()}</span>,
+      key: 6,
+      title: 'Total',
+      render: (value, record) => <span>{Number(record.totalPrice || 0)} VND</span>,
     },
     {
       align: 'center',
       key: 8,
-      render: (value, record: Book) => (
+      render: (value, record) => (
         <Row>
           <Col span={12}>
             <Button
@@ -189,13 +192,19 @@ const BookList = () => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (dataBook?.data) {
+      setListBook(dataBook?.data);
+    }
+  }, [dataBook]);
+
   return (
     <div className="container">
       <Row gutter={[0, 20]}>
         <Col span={24}>
           <Row align="middle" justify="space-between" wrap>
             <Col span={12}>
-              <h3>Book Management</h3>
+              <h3>Order Management</h3>
             </Col>
 
             <Col span={12}>
@@ -238,4 +247,4 @@ const BookList = () => {
   );
 };
 
-export default BookList;
+export default OrderList;

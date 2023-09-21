@@ -1,4 +1,4 @@
-import { BookOutlined } from '@ant-design/icons';
+import { BookOutlined, UserOutlined, FileSearchOutlined, HomeOutlined, ProfileOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import React, { useState } from 'react';
@@ -23,7 +23,13 @@ export const getItem = (
   } as MenuItem;
 };
 
-const menuItems: MenuProps['items'] = [getItem('Book Manager', 'book', <BookOutlined />)];
+const menuItems: MenuProps['items'] = [
+  getItem('Book Management', '/book', <BookOutlined />),
+  getItem('Author Management', '/author', <UserOutlined />),
+  getItem('Category Management', '/category', <FileSearchOutlined />),
+  getItem('Publisher Management', '/publisher', <HomeOutlined />),
+  getItem('Order Management', '/order', <ProfileOutlined />),
+];
 
 interface ISideBarContentProp {
   menuItems?: MenuProps['items'];

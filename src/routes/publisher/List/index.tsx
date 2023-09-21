@@ -4,43 +4,44 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button, Col, Empty, Popconfirm, Row, Table, message } from 'antd';
 import { ColumnType } from 'antd/es/table';
 import moment from 'moment';
-import { bookApi } from '../../../apis';
-import { Book } from '../../../utils/constants';
+import { bookApi, publisherApi } from '../../../apis';
+import { Book, Publisher } from '../../../utils/constants';
 import { CreateEditModal } from '../CreateEditModal';
+import { formatPhoneNumber } from '../../../utils';
 
-export interface CreateBookDTO {
-  title?: string;
-  page_number?: number;
-  price?: number;
-  published_date?: Date | string;
-  created_at?: Date;
-  author?: string;
-  category?: string;
-  publisher?: string;
+export interface CreatePublisherDTO {
+  name?: string;
+  address?: string;
+  phoneNumber?: string;
+  email?: string;
 }
 
-const BookList = () => {
-  const [listData, setListData] = useState<Book[]>();
+const PublisherList = () => {
+  const [listData, setListData] = useState<Publisher[]>();
   const [currentId, setCurrentId] = useState<string>();
   const [isOpenCreateEdit, setIsOpenCreateEdit] = useState<boolean>(false);
 
   const { data, refetch } = useQuery({
     queryKey: ['getList'],
-    queryFn: () => bookApi.bookControllerGetAll(),
+    queryFn: () => publisherApi.publisherControllerGetAll(),
   });
 
-  const createMutation = useMutation((createDTO: CreateBookDTO) => bookApi.bookControllerCreate(createDTO), {
-    onSuccess: ({ data }) => {
-      refetch();
-      onCancelModal();
-    },
-    onError: (error) => {
-      message.error('create failed');
-    },
-  });
+  const createMutation = useMutation(
+    (createDTO: CreatePublisherDTO) => publisherApi.publisherControllerCreate(createDTO),
+    {
+      onSuccess: ({ data }) => {
+        refetch();
+        onCancelModal();
+      },
+      onError: (error) => {
+        message.error('create failed');
+      },
+    }
+  );
 
   const editMutation = useMutation(
-    (param: { id: string; updateDTO: CreateBookDTO }) => bookApi.bookControllerUpdate(param.id, param.updateDTO),
+    (param: { id: string; updateDTO: CreatePublisherDTO }) =>
+      publisherApi.publisherControllerUpdate(param.id, param.updateDTO),
     {
       onSuccess: ({ data }) => {
         refetch();
@@ -52,7 +53,7 @@ const BookList = () => {
     }
   );
 
-  const deleteMutation = useMutation((id: string) => bookApi.bookControllerDetele(id), {
+  const deleteMutation = useMutation((id: string) => publisherApi.publisherControllerDelete(id), {
     onSuccess: ({ data }) => {
       refetch();
       onCancelModal();
@@ -82,7 +83,7 @@ const BookList = () => {
     setCurrentId(undefined);
   };
 
-  const onFinishFormModal = (value: CreateBookDTO) => {
+  const onFinishFormModal = (value: CreatePublisherDTO) => {
     if (!currentId) {
       createMutation.mutate(value);
     } else {
@@ -90,7 +91,7 @@ const BookList = () => {
     }
   };
 
-  const columns: ColumnType<any>[] = [
+  const columns: ColumnType<Publisher>[] = [
     {
       align: 'center',
       dataIndex: '_id',
@@ -100,60 +101,36 @@ const BookList = () => {
     },
     {
       align: 'center',
-      dataIndex: 'title',
+      dataIndex: 'name',
       key: 1,
-      title: 'Title',
-      filterSearch: true,
+      title: 'Name',
       render: (value) => <span>{value}</span>,
     },
     {
       align: 'center',
-      dataIndex: 'page_number',
+      dataIndex: 'address',
       key: 2,
-      title: 'Page Number',
+      title: 'Address',
       render: (value) => <span>{value || '...'}</span>,
     },
     {
       align: 'center',
-      dataIndex: 'price',
+      dataIndex: 'phoneNumber',
       key: 3,
-      title: 'Price',
-      render: (value) => (
-        <span>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value)}</span>
-      ),
+      title: 'Phone Number',
+      render: (value) => <span>{value ? formatPhoneNumber(value) : '...'}</span>,
     },
     {
       align: 'center',
-      dataIndex: 'published_date',
+      dataIndex: 'email',
       key: 4,
-      title: 'Published Date',
-      render: (value) => <span>{value ? moment(value).format('DD/MM/YYYY') : '...'}</span>,
-    },
-    {
-      align: 'center',
-      dataIndex: 'author',
-      key: 5,
-      title: 'Author',
-      render: (value, record) => <span>{`${record.author?.firstName} ${record.author?.lastName}`}</span>,
-    },
-    {
-      align: 'center',
-      dataIndex: 'category',
-      key: 6,
-      title: 'Category',
-      render: (value, record) => <span>{record.category?.name}</span>,
-    },
-    {
-      align: 'center',
-      dataIndex: 'publisher',
-      key: 7,
-      title: 'Publisher',
-      render: (value, record) => <span>{record.publisher?.name?.toUpperCase()}</span>,
+      title: 'Email',
+      render: (value) => <span>{value ? value : '...'}</span>,
     },
     {
       align: 'center',
       key: 8,
-      render: (value, record: Book) => (
+      render: (value, record: Publisher) => (
         <Row>
           <Col span={12}>
             <Button
@@ -195,7 +172,7 @@ const BookList = () => {
         <Col span={24}>
           <Row align="middle" justify="space-between" wrap>
             <Col span={12}>
-              <h3>Book Management</h3>
+              <h3>Publisher Management</h3>
             </Col>
 
             <Col span={12}>
@@ -238,4 +215,4 @@ const BookList = () => {
   );
 };
 
-export default BookList;
+export default PublisherList;
