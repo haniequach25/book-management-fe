@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Col, Empty, Popconfirm, Row, Table, message } from 'antd';
+import { Button, Col, Empty, Input, Popconfirm, Row, Table, message } from 'antd';
 import { ColumnType } from 'antd/es/table';
 import moment from 'moment';
 import { bookApi, orderApi } from '../../../apis';
-import { Book, Order } from '../../../utils/constants';
+import { Book, Order, SearchFilter } from '../../../utils/constants';
 import { CreateEditModal } from '../CreateEditModal';
+import { formatNumberThousand } from '../../../utils';
 
 export interface BookItems {
   quantity: number;
@@ -26,10 +27,13 @@ const OrderList = () => {
   const [currentId, setCurrentId] = useState<string>();
   const [isOpenCreateEdit, setIsOpenCreateEdit] = useState<boolean>(false);
   const [listBook, setListBook] = useState<Book[]>([]);
+  const [filter, setFilter] = useState<SearchFilter>({
+    fullTextSearch: undefined,
+  });
 
   const { data, refetch } = useQuery({
     queryKey: ['getList'],
-    queryFn: () => orderApi.orderControllerGetAll(),
+    queryFn: () => orderApi.orderControllerGetAll({ params: filter }),
   });
 
   const { data: dataBook } = useQuery({
@@ -145,13 +149,24 @@ const OrderList = () => {
       align: 'center',
       key: 6,
       title: 'Quantity',
-      render: (value, record) => <span>{record.items?.length ?? 0}</span>,
+      render: (value, record) => {
+        let quantity = 0;
+        const items = record.items;
+        items?.forEach((item) => {
+          quantity += Number(item.quantity ?? 0);
+        });
+        return <span>{quantity}</span>;
+      },
     },
     {
       align: 'center',
       key: 6,
       title: 'Total',
-      render: (value, record) => <span>{Number(record.totalPrice || 0)} VND</span>,
+      render: (value, record) => (
+        <span>
+          {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(record.totalPrice ?? 0)}
+        </span>
+      ),
     },
     {
       align: 'center',
@@ -208,7 +223,24 @@ const OrderList = () => {
             </Col>
 
             <Col span={12}>
-              <Row justify="end">
+              <Row justify="end" style={{ gap: '10px' }}>
+                <Col>
+                  <Input
+                    placeholder="Search"
+                    onChange={(e) =>
+                      setFilter((prev) => ({
+                        ...prev,
+                        fullTextSearch: e.target.value,
+                      }))
+                    }
+                    onKeyDown={(e) => {
+                      console.log('eeeeeeeeee', e.key);
+                      if (e.key === 'Enter') {
+                        refetch();
+                      }
+                    }}
+                  />
+                </Col>
                 <Col>
                   <Button type="primary" icon={<PlusOutlined />} onClick={onClickCreateButton}>
                     Add

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Col, Empty, Popconfirm, Row, Table, message } from 'antd';
+import { Button, Col, Empty, Input, Popconfirm, Row, Table, message } from 'antd';
 import { ColumnType } from 'antd/es/table';
 import moment from 'moment';
 import { bookApi, categoryApi } from '../../../apis';
-import { Book, Category } from '../../../utils/constants';
+import { Book, Category, SearchFilter } from '../../../utils/constants';
 import { CreateEditModal } from '../CreateEditModal';
 
 export interface CreateCategoryDTO {
@@ -16,10 +16,13 @@ const CategoryList = () => {
   const [listData, setListData] = useState<Category[]>();
   const [currentId, setCurrentId] = useState<string>();
   const [isOpenCreateEdit, setIsOpenCreateEdit] = useState<boolean>(false);
+  const [filter, setFilter] = useState<SearchFilter>({
+    fullTextSearch: undefined,
+  });
 
   const { data, refetch } = useQuery({
     queryKey: ['getList'],
-    queryFn: () => categoryApi.categoryControllerGetAll(),
+    queryFn: () => categoryApi.categoryControllerGetAll({ params: filter }),
   });
 
   const createMutation = useMutation(
@@ -151,7 +154,24 @@ const CategoryList = () => {
             </Col>
 
             <Col span={12}>
-              <Row justify="end">
+              <Row justify="end" style={{ gap: '10px' }}>
+                <Col>
+                  <Input
+                    placeholder="Search"
+                    onChange={(e) =>
+                      setFilter((prev) => ({
+                        ...prev,
+                        fullTextSearch: e.target.value,
+                      }))
+                    }
+                    onKeyDown={(e) => {
+                      console.log('eeeeeeeeee', e.key);
+                      if (e.key === 'Enter') {
+                        refetch();
+                      }
+                    }}
+                  />
+                </Col>
                 <Col>
                   <Button type="primary" icon={<PlusOutlined />} onClick={onClickCreateButton}>
                     Add

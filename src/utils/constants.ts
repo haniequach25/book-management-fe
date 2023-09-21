@@ -42,3 +42,9 @@ export interface Order {
   items?: bookItems[];
   totalPrice?: number;
 }
+
+export interface SearchFilter {
+  page?: number;
+  limit?: number;
+  fullTextSearch?: string;
+}

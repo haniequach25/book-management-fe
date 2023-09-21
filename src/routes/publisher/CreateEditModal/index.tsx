@@ -22,7 +22,7 @@ export const CreateEditModal: React.FC<IProps> = (props) => {
   const [form] = useForm();
   const n = (key: keyof CreatePublisherDTO) => key;
 
-  const detailMutation = useMutation((id: string) => authorApi.authorControllerGetOne(id), {
+  const detailMutation = useMutation((id: string) => publisherApi.publisherControllerGetOne(id), {
     onSuccess: (data: any) => {
       if (data.data) {
         const detail: Publisher = data.data;

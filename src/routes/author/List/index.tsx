@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Col, Empty, Popconfirm, Row, Table, message } from 'antd';
+import { Button, Col, Empty, Input, Popconfirm, Row, Table, message } from 'antd';
 import { ColumnType } from 'antd/es/table';
 import moment from 'moment';
 import { authorApi, bookApi } from '../../../apis';
-import { Author, Book } from '../../../utils/constants';
+import { Author, Book, SearchFilter } from '../../../utils/constants';
 import { CreateEditModal } from '../CreateEditModal';
 
 export interface CreateAuthorDTO {
@@ -19,10 +19,13 @@ const AuthorList = () => {
   const [listData, setListData] = useState<Author[]>();
   const [currentId, setCurrentId] = useState<string>();
   const [isOpenCreateEdit, setIsOpenCreateEdit] = useState<boolean>(false);
+  const [filter, setFilter] = useState<SearchFilter>({
+    fullTextSearch: undefined,
+  });
 
   const { data, refetch } = useQuery({
     queryKey: ['getList'],
-    queryFn: () => authorApi.authorControllerGetAll(),
+    queryFn: () => authorApi.authorControllerGetAll({ params: filter }),
   });
 
   const createMutation = useMutation((createDTO: CreateAuthorDTO) => authorApi.authorControllerCreate(createDTO), {
@@ -164,7 +167,24 @@ const AuthorList = () => {
             </Col>
 
             <Col span={12}>
-              <Row justify="end">
+              <Row justify="end" style={{ gap: '10px' }}>
+                <Col>
+                  <Input
+                    placeholder="Search"
+                    onChange={(e) =>
+                      setFilter((prev) => ({
+                        ...prev,
+                        fullTextSearch: e.target.value,
+                      }))
+                    }
+                    onKeyDown={(e) => {
+                      console.log('eeeeeeeeee', e.key);
+                      if (e.key === 'Enter') {
+                        refetch();
+                      }
+                    }}
+                  />
+                </Col>
                 <Col>
                   <Button type="primary" icon={<PlusOutlined />} onClick={onClickCreateButton}>
                     Add
